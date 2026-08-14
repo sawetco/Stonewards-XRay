@@ -1,0 +1,18 @@
+# Build output
+bin/
+obj/
+*.dll
+*.pdb
+*.log
+
+# Local game files
+BepInEx/
+doorstop_config.ini
+winhttp.dll
+
+# IDE / OS
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
