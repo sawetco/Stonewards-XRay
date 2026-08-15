@@ -1,0 +1,52 @@
+name: Bug report
+description: Report a reproducible problem with Stonewards X-Ray
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: input
+    id: mod-version
+    attributes:
+      label: Mod version
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: input
+    id: game-version
+    attributes:
+      label: Stonewards version
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Game mode
+      options:
+        - Single-player
+        - Multiplayer - host
+        - Multiplayer - client
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: log
+    attributes:
+      label: Relevant log output
+      description: Paste only the relevant section of BepInEx/LogOutput.log.
+      render: text
