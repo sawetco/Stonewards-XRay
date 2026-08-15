@@ -190,7 +190,6 @@ function Compile-XRay([string]$Root) {
 
     $csc = Find-CSharpCompiler
 
-    # Primary reference set.
     $refsAttempt1 = @(
         (Join-Path $managed 'netstandard.dll'),
         (Join-Path $managed 'System.Runtime.dll'),
@@ -233,7 +232,6 @@ function Compile-XRay([string]$Root) {
         Remove-Item -LiteralPath $output -Force
     }
 
-    # Fallback reference set using the game runtime assemblies.
     $refsAttempt2 = @(
         (Join-Path $managed 'mscorlib.dll'),
         (Join-Path $managed 'netstandard.dll'),
@@ -275,7 +273,7 @@ try {
     $root = Resolve-StonewardsRoot $GameRoot
 
     Write-Host ''
-    Write-Host 'Stonewards X-Ray by sawet - installer 1.0.0' -ForegroundColor Green
+    Write-Host 'Stonewards X-Ray by sawet - installer 1.1.0' -ForegroundColor Green
     Write-Host "Game: $root"
     Write-Host ''
 
@@ -286,13 +284,12 @@ try {
     Write-Host 'INSTALLATION COMPLETE' -ForegroundColor Green
     Write-Host ''
     Write-Host 'Start Stonewards normally from Steam.'
-    Write-Host 'F5  Activate / deactivate mod'
     Write-Host 'X   X-Ray ON/OFF'
+    Write-Host 'F5  Terrain ON/OFF'
     Write-Host 'F6  Target mode'
-    Write-Host 'F7  Name tags ON/OFF'
+    Write-Host 'F7  Distance'
     Write-Host 'F8  Opacity'
-    Write-Host 'F9  Distance'
-    Write-Host 'F10 Overlay ON/OFF'
+    Write-Host 'F9  Overlay ON/OFF'
     Write-Host ''
 }
 catch {
