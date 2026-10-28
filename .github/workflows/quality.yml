@@ -1,0 +1,44 @@
+name: Quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: quality-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  powershell-syntax:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - name: Validate all PowerShell installer scripts without executing them
+        shell: pwsh
+        run: |
+          $scripts = @(Get-ChildItem -Path scripts -Filter '*.ps1' -File)
+          if ($scripts.Count -eq 0) { throw 'No PowerShell scripts found' }
+          foreach ($script in $scripts) {
+            $tokens = $null
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($script.FullName, [ref] $tokens, [ref] $errors) | Out-Null
+            if ($errors.Count -gt 0) {
+              $errors | ForEach-Object { Write-Error "$($script.Name): $_" }
+              throw "PowerShell parse failed: $($script.Name)"
+            }
+            Write-Host "Validated $($script.Name)"
+          }
+      - name: Check plugin source is present
+        shell: bash
+        run: |
+          test -s src/StonewardsXRayPlugin.cs
+          test -s scripts/Install-Stonewards-XRay.ps1
+          test -s scripts/Uninstall-Stonewards-XRay.ps1
