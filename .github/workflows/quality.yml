@@ -62,6 +62,8 @@ jobs:
             [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors) | Out-Null
             if ($errors.Count) { throw "Windows PowerShell parse failed" }
           }
+      - name: Test deterministic packaging with multilingual paths
+        run: python .github/automation/test-package.py
       - name: Build and verify the source installer archive
         run: python .github/automation/package-stonewards.py
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9

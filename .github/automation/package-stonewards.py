@@ -2,11 +2,11 @@
 from pathlib import Path
 import json,re,zipfile,hashlib
 def build(root=Path.cwd()):
- version=json.loads((root/'version.json').read_text())['version']
+ version=json.loads((root/'version.json').read_text(encoding="utf-8"))['version']
  if not re.fullmatch(r'\d+\.\d+\.\d+',version):raise ValueError('Invalid version')
  for filename in ['src/StonewardsXRayPlugin.cs','scripts/Install-Stonewards-XRay.ps1','README.md']:
-  if version not in (root/filename).read_text():raise ValueError('Version metadata mismatch: '+filename)
- if f'## {version}' not in (root/'CHANGELOG.md').read_text():raise ValueError('Missing changelog version')
+  if version not in (root/filename).read_text(encoding="utf-8"):raise ValueError('Version metadata mismatch: '+filename)
+ if f'## {version}' not in (root/'CHANGELOG.md').read_text(encoding="utf-8"):raise ValueError('Missing changelog version')
  files={p.name:p for p in (root/'scripts').iterdir() if p.suffix in ['.cmd','.ps1']}
  files['StonewardsXRayPlugin.cs']=root/'src/StonewardsXRayPlugin.cs'
  for filename in ['README.md','CHANGELOG.md','LICENSE','SECURITY.md']:files[filename]=root/filename
