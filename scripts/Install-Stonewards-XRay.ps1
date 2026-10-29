@@ -273,7 +273,7 @@ try {
     $root = Resolve-StonewardsRoot $GameRoot
 
     Write-Host ''
-    Write-Host 'Stonewards X-Ray by sawet - installer 1.1.0' -ForegroundColor Green
+    Write-Host 'Stonewards X-Ray by sawet - installer 1.1.1' -ForegroundColor Green
     Write-Host "Game: $root"
     Write-Host ''
 
