@@ -1,9 +1,12 @@
 name: Quality
 
 on:
+  schedule:
+    - cron: "17 2 * * 3"
   pull_request:
   push:
     branches: [main]
+  workflow_call:
   workflow_dispatch:
 
 permissions:
@@ -42,3 +45,40 @@ jobs:
           test -s src/StonewardsXRayPlugin.cs
           test -s scripts/Install-Stonewards-XRay.ps1
           test -s scripts/Uninstall-Stonewards-XRay.ps1
+
+  package:
+    name: Installer package
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - name: Validate Windows PowerShell 5.1 and PowerShell 7 source
+        shell: powershell
+        run: |
+          Get-ChildItem scripts/*.ps1 | ForEach-Object {
+            $tokens = $null; $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$tokens, [ref]$errors) | Out-Null
+            if ($errors.Count) { throw "Windows PowerShell parse failed" }
+          }
+      - name: Test deterministic packaging with multilingual paths
+        run: python .github/automation/test-package.py
+      - name: Build and verify the source installer archive
+        run: python .github/automation/package-stonewards.py
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: product-package
+          path: dist/*
+          if-no-files-found: error
+          retention-days: 14
+
+  readiness:
+    name: Release readiness
+    needs: [powershell-syntax, package]
+    if: always()
+    runs-on: ubuntu-24.04
+    steps:
+      - env:
+          RESULTS: ${{ toJSON(needs) }}
+        run: node -e 'const n=JSON.parse(process.env.RESULTS);if(Object.values(n).some(j=>j.result!=="success"))process.exit(1)'

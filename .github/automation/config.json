@@ -1,0 +1,23 @@
+{
+  "requiredChecks": [
+    "Release readiness",
+    "Security checks"
+  ],
+  "workflowNames": [
+    "Quality",
+    "Release",
+    "Security"
+  ],
+  "qualityWorkflow": "quality.yml",
+  "securityWorkflow": "security.yml",
+  "monitoredWorkflows": [
+    "Plan product release"
+  ],
+  "releaseFiles": [
+    "version.json",
+    "src/StonewardsXRayPlugin.cs",
+    "scripts/Install-Stonewards-XRay.ps1",
+    "README.md",
+    "CHANGELOG.md"
+  ]
+}
