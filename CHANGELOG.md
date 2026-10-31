@@ -1,5 +1,9 @@
 # Changelog
 
+
+## 1.1.1
+
+- Tested maintenance updates; see generated release notes.
 ## 1.1.0
 
 - Fixed terrain X-Ray being reset by terrain updates from other players in co-op.
