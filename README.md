@@ -1,6 +1,6 @@
 # Stonewards X-Ray
 
-[![Release](https://img.shields.io/badge/release-v1.1.0-blue)](https://github.com/sawetco/Stonewards-XRay/releases/tag/v1.1.0)
+[![Release](https://img.shields.io/badge/release-v1.1.1-blue)](https://github.com/sawetco/Stonewards-XRay/releases/tag/v1.1.1)
 [![License](https://img.shields.io/github/license/sawetco/Stonewards-XRay)](LICENSE)
 
 Stonewards X-Ray is a client-side visual mod for [Stonewards](https://store.steampowered.com/app/4502710/Stonewards/) (Steam App ID 4502710) by sawet. It highlights chests and useful discoverable objects through terrain and provides optional terrain hiding for full X-Ray visibility.
@@ -34,7 +34,7 @@ Defaults: **Chests**, **100m**, **25% opacity**.
 - **Discoverables** — lore, pets, pickups, item barrels, minerals, and other collectible items.
 - **Chests + Discoverables** — both groups together.
 
-Structural objects, hazards, enemies, lamps, and generic destructible props are intentionally excluded in v1.1.0. Support for additional target categories is planned for future releases.
+Structural objects, hazards, enemies, lamps, and generic destructible props are intentionally excluded in v1.1.1. Support for additional target categories is planned for future releases.
 
 ## Languages
 

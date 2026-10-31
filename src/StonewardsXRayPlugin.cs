@@ -4,7 +4,7 @@ using System.Reflection;
 using BepInEx;
 using UnityEngine;
 
-[BepInPlugin("sawet.stonewards.xray", "Stonewards X-Ray by sawet", "1.1.0")]
+[BepInPlugin("sawet.stonewards.xray", "Stonewards X-Ray by sawet", "1.1.1")]
 [DefaultExecutionOrder(10000)]
 public class StonewardsXRayPlugin : BaseUnityPlugin
 {
@@ -126,7 +126,7 @@ public class StonewardsXRayPlugin : BaseUnityPlugin
 
     private void Awake()
     {
-        Logger.LogInfo("Stonewards X-Ray by sawet 1.1.0 loaded.");
+        Logger.LogInfo("Stonewards X-Ray by sawet 1.1.1 loaded.");
         _diggerSystemType = FindType("Digger.Modules.Core.Sources.DiggerSystem");
         ResolveTargetTypes();
         BuildMaterials();
