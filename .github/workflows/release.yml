@@ -94,5 +94,9 @@ jobs:
         uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6
         with:
           subject-path: "*.zip"
+      - name: Attach checksums and the source installer manifest
+        run: |
+          python -c 'import os,json,pathlib,hashlib; p=pathlib.Path("Stonewards-XRay-by-sawet-v"+os.environ["RELEASE_VERSION"]+".zip"); h=hashlib.sha256(p.read_bytes()).hexdigest(); pathlib.Path("SHA256SUMS").write_text(h+"  "+p.name+"\n"); m=json.loads(pathlib.Path("package-manifest.json").read_text()); m["sha256"]=h; pathlib.Path("package-manifest.json").write_text(json.dumps(m,indent=2)+"\n")'
+          gh release upload "v$RELEASE_VERSION" SHA256SUMS package-manifest.json --clobber
       - name: Publish the completed GitHub release
         run: gh release edit "v$RELEASE_VERSION" --draft=false --latest
